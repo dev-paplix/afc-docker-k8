@@ -1,0 +1,27 @@
+<h1> Edit User </h1>
+
+<form (ngSubmit)="saveChanges()">
+    <div class=" container row-auto">
+        <label>Name:</label>
+        <input [(ngModel)]="user.name" name="name" class="ml-5 border-r-2 border-t-zinc-900 bg-cyan-200"/>
+    </div>
+    <div class=" container row-auto">
+        <label>Email:</label>
+        <input [(ngModel)]="user.email" name="eamil" class="ml-5 border-r-2 border-t-zinc-900 bg-cyan-200"/>
+    </div>
+    <div class=" container row-auto">
+        <label>Contact Number:</label>
+        <input [(ngModel)]="user.contactNumber" name="contactNumber" class="ml-5 border-r-2 border-t-zinc-900 bg-cyan-200"/>
+    </div>
+    <div class=" container row-auto">
+        <label>Role:</label>
+        <input [(ngModel)]="user.role" name="role" class="ml-5 border-r-2 border-t-zinc-900 bg-cyan-200"/>
+    </div>
+
+    <div class=" container row-auto">
+        <label>Status:</label>
+        <input [(ngModel)]="user.status" name="status" class="ml-5 border-r-2 border-t-zinc-900 bg-cyan-200"/>
+    </div>
+    <button type="submit" class=" button"> Save Changes</button>
+
+</form>

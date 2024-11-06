@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: database
+spec:
+  selector:
+    matchLabels:
+      app: database 
+  serviceName: "database-service"
+  replicas: 3 
+  template:
+    metadata:
+      labels:
+        app: database 
+    spec:
+      volumes:
+        - name: dbdata
+          persistentVolumeClaim:
+            claimName: databaseclaim
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: postgres
+        image: postgres:13.16-bookworm
+        ports:
+        - containerPort: 5432
+          name: database-port
+        volumeMounts:
+        - name: dbdata
+          mountPath: /var/lib/postgresql/data
+        env:
+        - name: POSTGRES_USER                   
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap         
+              key: POSTGRES_USER
+        - name: POSTGRES_DB                   
+          valueFrom:
+            configMapKeyRef:
+              name: dbconfigmap         
+              key: POSTGRES_DB
+        - name: POSTGRES_PASSWORD                   
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret         
+              key: POSTGRES_PASSWORD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-service
+  labels:
+    app: database-service
+spec:
+  ports:
+  - port: 5432
+    name: database-service-port
+  clusterIP: None
+  selector:
+    app: database

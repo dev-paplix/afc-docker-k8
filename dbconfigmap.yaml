@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dbconfigmap
+data:
+  POSTGRES_USER: "test"
+  POSTGRES_DB: "test"

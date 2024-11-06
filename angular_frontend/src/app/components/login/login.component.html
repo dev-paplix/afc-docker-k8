@@ -1,0 +1,31 @@
+<mat-tab-group>
+    <mat-tab label="Sign In"> 
+        <h1>Sign In</h1>
+         <form [formGroup] = "loginForm" (ngSubmit)="onSubmit()">
+            <div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Enter Your Email Addrress:</mat-label>
+                        <input matInput formControlName="email" placeholder="example@email.com" required />
+                        <mat-error *ngIf="loginForm.get('email')?.invalid">Please enter a valid email</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Enter Your Password:</mat-label>
+                        <input matInput [type]="hide ? 'password': 'text'" formControlName="password" required />
+                        <button mat-icon-button matSuffix (click)="clickEvent($event)">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-flat-button color="primary" type='submit' [disabled]="loginForm.invalid">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+         </form>
+    </mat-tab>
+    <mat-tab label="Sign Up"> Sign Up </mat-tab>
+</mat-tab-group>
