@@ -1,0 +1,11 @@
+/.kub/config
+openssl genrsa -out syafiq.key 2048
+
+openssl req -new -key syafiq.key -out syafiq.csr -subj "/CN=syafiq/O=dev/O=example.org"
+
+openssl x509 -req -CA  /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -days 730 -in syafiq.csr -out syafiq.crt
+kubectl config set-credentials syafiq --client-certificate=syafiq.crt --client-key=syafiq.key
+kubectl config set-context syafiq-kubernetes --cluster=kubernetes --user=syafiq --namespace=default
+kubectl config get-contexts
+kubectl config use-context
+kubectl api-resources -o wide | grep pod
