@@ -14,15 +14,17 @@ spec:
       labels:
         app: angular-frontend
     spec:
-      tolerations:
-      - key: "key1"
-        operator: "Equal"
-        value: "value1"
-      #nodeName: minikube-m03
-      #nodeSelector:
-       # team: dev
+
+
       containers:
       - name: angular-frontend
         image: ariwesi/angular-front:latest
-        ports:
-        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        # ports:
+        # - containerPort: 80
